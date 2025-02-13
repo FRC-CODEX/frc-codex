@@ -37,6 +37,7 @@ import com.frc.codex.model.Company;
 import com.frc.codex.model.Filing;
 import com.frc.codex.model.FilingResultRequest;
 import com.frc.codex.model.FilingStatus;
+import com.frc.codex.model.GenerationVersioning;
 import com.frc.codex.model.NewFilingRequest;
 import com.frc.codex.model.SearchFilingsRequest;
 import com.frc.codex.model.companieshouse.CompaniesHouseArchive;
@@ -81,6 +82,9 @@ public class DatabaseManagerImpl implements AutoCloseable, DatabaseManager {
 					"download_time = ?, " +
 					"upload_time = ?, " +
 					"worker_time = ?, " +
+					"generation_arelle_version = ?," +
+					"generation_ixbrl_viewer_version = ?," +
+					"generation_service_version = ?," +
 					"total_processing_time = ?, " +
 					"total_uploaded_bytes = ?, " +
 					"result_timestamp = CURRENT_TIMESTAMP " +
@@ -103,6 +107,15 @@ public class DatabaseManagerImpl implements AutoCloseable, DatabaseManager {
 			statement.setDouble(++i, filingResultRequest.getDownloadTime());
 			statement.setDouble(++i, filingResultRequest.getUploadTime());
 			statement.setDouble(++i, filingResultRequest.getWorkerTime());
+			if (filingResultRequest.getGenerationVersioning() == null) {
+				statement.setNull(++i, java.sql.Types.VARCHAR);
+				statement.setNull(++i, java.sql.Types.VARCHAR);
+				statement.setNull(++i, java.sql.Types.VARCHAR);
+			} else {
+				statement.setString(++i, filingResultRequest.getGenerationVersioning().getArelleVersion());
+				statement.setString(++i, filingResultRequest.getGenerationVersioning().getViewerVersion());
+				statement.setString(++i, filingResultRequest.getGenerationVersioning().getServiceVersion());
+			}
 			statement.setDouble(++i, filingResultRequest.getTotalProcessingTime());
 			statement.setLong(++i, filingResultRequest.getTotalUploadedBytes());
 			statement.setObject(++i, filingResultRequest.getFilingId());
@@ -500,6 +513,11 @@ public class DatabaseManagerImpl implements AutoCloseable, DatabaseManager {
 					.streamTimepoint(resultSet.getLong("stream_timepoint"))
 					.oimDirectory(resultSet.getString("oim_directory"))
 					.stubViewerUrl(resultSet.getString("stub_viewer_url"))
+					.generationVersioning(GenerationVersioning.builder()
+						.arelleVersion(resultSet.getString("generation_arelle_version"))
+						.viewerVersion(resultSet.getString("generation_ixbrl_viewer_version"))
+						.serviceVersion(resultSet.getString("generation_service_version"))
+						.build())
 					.build());
 		}
 		return results.build();

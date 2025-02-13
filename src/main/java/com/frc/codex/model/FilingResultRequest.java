@@ -25,6 +25,7 @@ public class FilingResultRequest {
 	private final Long totalUploadedBytes;
 	private final Double uploadTime;
 	private final Double workerTime;
+	private final GenerationVersioning generationVersioning;
 
 	private FilingResultRequest(Builder builder) {
 		this.companyName = builder.companyName;
@@ -42,6 +43,7 @@ public class FilingResultRequest {
 		this.totalUploadedBytes = builder.totalUploadedBytes;
 		this.uploadTime = builder.uploadTime;
 		this.workerTime = builder.workerTime;
+		this.generationVersioning = builder.generationVersioning;
 	}
 
 	public static Builder builder() {
@@ -108,6 +110,10 @@ public class FilingResultRequest {
 		return workerTime;
 	}
 
+	public GenerationVersioning getGenerationVersioning() {
+		return generationVersioning;
+	}
+
 	public boolean isSuccess() {
 		return success;
 	}
@@ -128,6 +134,7 @@ public class FilingResultRequest {
 		private Long totalUploadedBytes;
 		private Double uploadTime;
 		private Double workerTime;
+		private GenerationVersioning generationVersioning;
 
 		public Builder companyName(String companyName) {
 			this.companyName = companyName;
@@ -177,12 +184,18 @@ public class FilingResultRequest {
 			String filename = null;
 			String oimDirectory = null;
 			String viewerEntrypoint = null;
+			GenerationVersioning generationVersioning = null;
 			if (!success) {
 				error = jsonNode.get("Error").asText();
 			} else {
 				filename = jsonNode.get("Filename").asText();
 				oimDirectory = jsonNode.get("OimDirectory").asText(null);
 				viewerEntrypoint = jsonNode.get("ViewerEntrypoint").asText();
+				generationVersioning = GenerationVersioning.builder()
+						.arelleVersion(jsonNode.get("ArelleVersion").asText(null))
+						.viewerVersion(jsonNode.get("ArelleViewerVersion").asText(null))
+						.serviceVersion(jsonNode.get("ServiceVersion").asText(null))
+						.build();
 			}
 			String companyName = jsonNode.get("CompanyName").asText();
 			companyName = companyName == null ? null : companyName.toUpperCase();
@@ -209,6 +222,7 @@ public class FilingResultRequest {
 					.filename(filename)
 					.oimDirectory(oimDirectory)
 					.stubViewerUrl(viewerEntrypoint)
+					.generationVersioning(generationVersioning)
 					.success(success);
 		}
 
@@ -229,6 +243,11 @@ public class FilingResultRequest {
 
 		public Builder stubViewerUrl(String stubViewerUrl) {
 			this.stubViewerUrl = stubViewerUrl;
+			return this;
+		}
+
+		public Builder generationVersioning(GenerationVersioning generationVersioning) {
+			this.generationVersioning = generationVersioning;
 			return this;
 		}
 

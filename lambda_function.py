@@ -18,6 +18,9 @@ def lambda_handler(event, context):
     )
     worker_result = processor.run_from_lambda(event, context)
     result = {
+        'ArelleVersion': processor_options.arelle_version,
+        'ArelleViewerVersion': processor_options.ixbrl_viewer_version,
+        'ServiceVersion': processor_options.service_version,
         'CompanyName': worker_result.company_name,
         'CompanyNumber': worker_result.company_number,
         'Error': worker_result.error,

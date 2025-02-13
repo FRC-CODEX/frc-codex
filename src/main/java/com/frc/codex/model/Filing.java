@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public class Filing {
 	private static final DateTimeFormatter DISPLAY_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 	private final UUID filingId;
 	private final Timestamp discoveredDate;
 	private final String status;
@@ -26,6 +27,7 @@ public class Filing {
 	private final String logs;
 	private final String stubViewerUrl;
 	private final String oimDirectory;
+	private final GenerationVersioning generationVersioning;
 
 	public Filing(Builder b) {
 		this.filingId = b.filingId;
@@ -46,6 +48,7 @@ public class Filing {
 		this.logs = b.logs;
 		this.stubViewerUrl = b.stubViewerUrl;
 		this.oimDirectory = b.oimDirectory;
+		this.generationVersioning = b.generationVersioning;
 	}
 
 	public String displayDocumentDate() {
@@ -169,6 +172,10 @@ public class Filing {
 		}
 	}
 
+	public GenerationVersioning getGenerationVersioning() {
+		return generationVersioning;
+	}
+
 	public static Builder builder() {
 		return new Builder();
 	}
@@ -192,6 +199,7 @@ public class Filing {
 		private String logs;
 		private String stubViewerUrl;
 		private String oimDirectory;
+		private GenerationVersioning generationVersioning;
 
 		public Filing build() {
 			return new Filing(this);
@@ -285,6 +293,11 @@ public class Filing {
 
 		public Builder oimDirectory(String oimDirectory) {
 			this.oimDirectory = oimDirectory;
+			return this;
+		}
+
+		public Builder generationVersioning(GenerationVersioning generationVersioning) {
+			this.generationVersioning = generationVersioning;
 			return this;
 		}
 	}

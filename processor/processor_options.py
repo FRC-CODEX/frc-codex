@@ -1,9 +1,21 @@
 import os
 from functools import cached_property
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
 
+def _get_library_version(library_name: str) -> str | None:
+    try:
+        return version(library_name)
+    except PackageNotFoundError:
+        return None
+
+
 class ProcessorOptions:
+
+    @cached_property
+    def arelle_version(self) -> str | None:
+        return _get_library_version('arelle-release')
 
     @cached_property
     def aws_endpoint_url(self):
@@ -12,6 +24,10 @@ class ProcessorOptions:
     @cached_property
     def http_cache_directory(self) -> Path:
         return Path(os.getenv('HTTP_CACHE_DIRECTORY', '/tmp/_HTTP_CACHE'))
+
+    @cached_property
+    def ixbrl_viewer_version(self) -> str | None:
+        return _get_library_version('ixbrl-viewer')
 
     @cached_property
     def maximum_processors(self):
@@ -32,6 +48,10 @@ class ProcessorOptions:
     @cached_property
     def s3_region_name(self):
         return os.getenv('S3_REGION_NAME')
+
+    @cached_property
+    def service_version(self) -> str | None:
+        return os.getenv('SERVICE_VERSION')
 
     @cached_property
     def sqs_jobs_queue_name(self):

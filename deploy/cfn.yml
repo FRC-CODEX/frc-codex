@@ -729,6 +729,7 @@ Resources:
           S3_HTTP_CACHE_BUCKET_NAME: !Ref S3HttpCacheBucket
           S3_RESULTS_BUCKET_NAME: !Ref S3ResultsBucket
           S3_TAXONOMY_PACKAGES_BUCKET_NAME: !Ref S3TaxonomyPackagesBucket
+          SERVICE_VERSION: !Ref Version
       EphemeralStorage:
         Size: 512
       LoggingConfig:

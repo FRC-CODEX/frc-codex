@@ -1,14 +1,14 @@
 import json
 import logging
-from typing import Iterable
+from collections.abc import Iterable
 
 import boto3
 from botocore.exceptions import ClientError
 
 from processor.base.job_message import JobMessage
+from processor.base.queue_manager import QueueManager
 from processor.base.worker import WorkerResult
 from processor.processor_options import ProcessorOptions
-from processor.base.queue_manager import QueueManager
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +20,9 @@ class MainQueueManager(QueueManager):
         self._results_queue = MainQueueManager._get_queue(processor_options.sqs_results_queue_name, processor_options)
         self._max_number = processor_options.sqs_max_messages
         self._wait_time = processor_options.sqs_wait_time
+        self._arelle_version = processor_options.arelle_version
+        self._ixbrl_viewer_version = processor_options.ixbrl_viewer_version
+        self._service_version = processor_options.service_version
 
     def complete_job(self, job_message: JobMessage) -> None:
         self._jobs_queue.delete_messages(
@@ -72,6 +75,21 @@ class MainQueueManager(QueueManager):
                 'DataType': 'String'
             },
         }
+        if self._arelle_version:
+            message_attributes['ArelleVersion'] = {
+                'StringValue': self._arelle_version,
+                'DataType': 'String'
+            }
+        if self._ixbrl_viewer_version:
+            message_attributes['ArelleViewerVersion'] = {
+                'StringValue': self._ixbrl_viewer_version,
+                'DataType': 'String'
+            }
+        if self._service_version:
+            message_attributes['ServiceVersion'] = {
+                'StringValue': self._service_version,
+                'DataType': 'String'
+            }
         if worker_result.company_name:
             message_attributes['CompanyName'] = {
                 'StringValue': worker_result.company_name,
