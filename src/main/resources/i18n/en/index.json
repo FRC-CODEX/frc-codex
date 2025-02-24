@@ -17,7 +17,9 @@
   "results": {
     "companyNo": "Company No.",
     "dateFiled": "Date Filed: ",
+    "dateFiledTitle": "The date the filing was filed with the Companies House Registry or FCA.",
     "documentDate": "Document Date: ",
+    "documentDateTitle": "This is the date associated with the document. Please note that this date may not be displayed on this page for some files that are not yet being processed by the UK iXBRL Viewer.",
     "downloads": {
       "csv": {
         "description": "XBRL facts as CSV files in a zip report package.",

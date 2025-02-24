@@ -17,7 +17,9 @@
   "results": {
     "companyNo": "Número de Empresa",
     "dateFiled": "Fecha de presentación: ",
+    "dateFiledTitle": "La fecha en la que se presentó el informe ante el Registro de Empresas o FCA.",
     "documentDate": "Fecha del Documento: ",
+    "documentDateTitle": "Esta es la fecha asociada al documento. Tenga en cuenta que es posible que esta fecha no se muestre en esta página para algunos archivos que aún no están siendo procesados por el visor iXBRL del Reino Unido.",
     "downloads": {
       "csv": {
         "description": "Datos XBRL como archivos CSV en un paquete de informes zip.",
