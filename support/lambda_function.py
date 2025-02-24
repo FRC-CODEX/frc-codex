@@ -3,6 +3,7 @@ import logging
 
 from support.actions.get_ch_indexing_stats_action import GetChIndexingStatsAction
 from support.actions.get_ch_streaming_stats_action import GetChStreamingStatsAction
+from support.actions.get_filing_details_action import GetFilingDetailsAction
 from support.actions.list_errors_action import ListErrorsAction
 from support.actions.reset_archives_action import ResetArchivesAction
 from support.actions.reset_companies_action import ResetCompaniesAction
@@ -14,6 +15,7 @@ logger = logging.getLogger(__name__)
 ACTIONS_MAP = {
     'get_ch_indexing_stats': GetChIndexingStatsAction,
     'get_ch_streaming_stats': GetChStreamingStatsAction,
+    'get_filing_details': GetFilingDetailsAction,
     'list_errors': ListErrorsAction,
     'reset_archives': ResetArchivesAction,
     'reset_companies': ResetCompaniesAction,

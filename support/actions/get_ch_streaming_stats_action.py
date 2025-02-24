@@ -3,7 +3,7 @@ from support.actions.base_action import BaseAction
 
 class GetChStreamingStatsAction(BaseAction):
 
-    def _run(self, options, cursor) -> tuple[bool, str, list | int]:
+    def _run(self, options, cursor) -> tuple[bool, str, list | int | dict]:
         query = "SELECT " \
                 "COUNT(*) AS unprocessed_count, " \
                 "MIN(created_date) AS earliest_created_date, " \
