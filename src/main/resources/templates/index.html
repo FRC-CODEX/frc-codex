@@ -183,11 +183,25 @@
                                 </dd>
                             </dl>
                             <dl style="flex-basis: 20%;">
-                                <dt data-i18n="index:results.documentDate">Document Date: </dt>
+                                <dt data-i18n="index:results.documentDate" data-i18n-title="index:results.documentDateTitle">Document Date:
+                                    <span class="download-link">
+                                        <img src="/icons/info.svg" alt="Info icon" height="5" width="5">
+                                        <span class="download-tooltip">
+                                            <span data-i18n="index:results.documentDateTitle">This is the date associated with the document. Please note that this date may not be displayed on this page for some files that are not yet being processed by the UK iXBRL Viewer.</span>
+                                        </span>
+                                    </span>
+                                </dt>
                                 <dd th:text="${filing.displayDocumentDate()}"></dd>
                             </dl>
                             <dl style="flex-basis: 15%;">
-                                <dt data-i18n="index:results.dateFiled">Date Filed: </dt>
+                                <dt data-i18n="index:results.dateFiled">Date Filed:
+                                    <span class="download-link">
+                                    <img src="/icons/info.svg" alt="Info icon" height="5" width="5">
+                                    <span class="download-tooltip">
+                                            <span data-i18n="index:results.documentDateTitle">The date on which the report was filed with Companies House Registry or FCA.</span>
+                                        </span>
+                                    </span>
+                                </dt>
                                 <dd th:text="${filing.displayFilingDate()}"></dd>
                             </dl>
                         </div>

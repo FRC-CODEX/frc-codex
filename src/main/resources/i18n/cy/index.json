@@ -19,7 +19,9 @@
   "results": {
     "companyNo": "Rhif Cwmni",
     "dateFiled": "Dyddiad Ffeil:",
+    "dateFiledTitle": "Y dyddiad y cafodd yr adroddiad ei ffeilio gyda Chofrestrfa Tŷ’r Cwmnïau neu’r FCA.",
     "documentDate": "Dyddiad y Ddogfen: ",
+    "documentDateTitle": "Dyma'r dyddiad sy'n gysylltiedig â'r ddogfen. Sylwch efallai na fydd y dyddiad hwn yn cael ei ddangos ar y dudalen hon ar gyfer rhai ffeiliau nad ydynt yn cael eu prosesu eto gan y Gwyliwr iXBRL DU.",
     "downloads": {
       "csv": {
         "description": "Ffeithiau XBRL fel ffeiliau CSV mewn pecyn adroddiad sip.",
